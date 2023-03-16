@@ -12,14 +12,55 @@
             <RowDefinition Height="5*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="DarkBlue">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-        <ComboBox Grid.Row="0" Grid.Column="1" Name="MethodBox" ItemsSource="{Binding Methods}" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center" />
-        <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Http method"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" Name="MethodBox" ItemsSource="{Binding Methods}" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center" SelectionChanged="MethodBox_SelectionChanged" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Http method" Foreground="White" FontWeight="SemiBold"/>
         </Grid>
-        <ListBox Grid.Row="1" Name="CarList" ItemsSource="{Binding Cars}"/>
+        <Grid Name="GridAdd" Grid.Row="1" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Make" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Year" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="VIN" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="Color" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+
+
+
+            <TextBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+            <TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+            <TextBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+            <TextBox Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+            <TextBox Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+            
+        </Grid>
+
+        <Grid Name="GridPut" Grid.Row="1">
+
+        </Grid>
+
+        <Grid Name="GridGetT" Grid.Row="1">
+
+        </Grid>
+        
+        <Grid Name="GridDelete" Grid.Row="1">
+
+        </Grid>
     </Grid>
 </Window>
