@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0" Name="MethodBox" ItemsSource="{Binding Source= Methods}" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center" />
+        <ListBox Grid.Row="1" Name="CarList" ItemsSource="{Binding Cars}"/>
     </Grid>
 </Window>
