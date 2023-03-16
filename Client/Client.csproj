@@ -11,4 +11,9 @@
     <Compile Remove="AssemblyInfo.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>
