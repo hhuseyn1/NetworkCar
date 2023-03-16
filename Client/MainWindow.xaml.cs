@@ -7,8 +7,11 @@ namespace Client;
 
 public partial class MainWindow : Window
 {
-    ObservableCollection<Car> Cars { get; set; }
-    ObservableCollection<string> Methods { get; set; }
+    public ObservableCollection<Car> Cars { get; set; }
+    public  ObservableCollection<string> Methods { get; set; }
+
+
+
     public MainWindow()
     {
         InitializeComponent();
