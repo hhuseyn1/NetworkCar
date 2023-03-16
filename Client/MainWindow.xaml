@@ -6,13 +6,20 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Visibility="Visible">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="5*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox Grid.Row="0" Name="MethodBox" ItemsSource="{Binding Methods}" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center" />
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+        <ComboBox Grid.Row="0" Grid.Column="1" Name="MethodBox" ItemsSource="{Binding Methods}" HorizontalAlignment="Left" Width="150" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Http method"/>
+        </Grid>
         <ListBox Grid.Row="1" Name="CarList" ItemsSource="{Binding Cars}"/>
     </Grid>
 </Window>

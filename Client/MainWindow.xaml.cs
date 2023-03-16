@@ -10,8 +10,10 @@ public partial class MainWindow : Window
     public ObservableCollection<Car> Cars { get; set; }
     public  ObservableCollection<string> Methods { get; set; }
 
-
-
+    //Post-Add
+    //Get-null ? all : id
+    //Put-
+    //Delete-Remove
     public MainWindow()
     {
         InitializeComponent();
