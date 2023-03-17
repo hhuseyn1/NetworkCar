@@ -56,7 +56,39 @@
         </Grid>
 
         <Grid Name="GridGetT" Grid.Row="1">
-
+            <ListView Name="ListCars" ItemsSource="{Binding Cars}">
+                <ListView.View>
+                    
+                    <GridView>
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style>
+                                <Setter Property="TextElement.FontSize" Value="16" />
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+                        <GridViewColumn Header="Id" Width="40" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="Make" Width="80" DisplayMemberBinding="{Binding Make}"/>
+                        <GridViewColumn Header="Model" Width="80" DisplayMemberBinding="{Binding Model}"/>
+                        <GridViewColumn Header="Year" Width="80" DisplayMemberBinding="{Binding Year}"/>
+                        <GridViewColumn Header="VIN" Width="100" DisplayMemberBinding="{Binding VIN}"/>
+                        <GridViewColumn Header="Color" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                    </GridView>    
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="FontSize" Value="16"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Id"/>
+                        <MenuItem Header="Make"/>
+                        <MenuItem Header="Model"/>
+                        <MenuItem Header="Year"/>
+                        <MenuItem Header="VIN"/>
+                        <MenuItem Header="Color"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
         </Grid>
         
         <Grid Name="GridDelete" Grid.Row="1">

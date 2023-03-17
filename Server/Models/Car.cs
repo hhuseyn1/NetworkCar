@@ -9,4 +9,9 @@ public class Car
     public string VIN { get; set; }
     public string Color { get; set; }
 
+    public override string ToString()
+    {
+        return $"Id {Id} Make {Make} Model {Model} Year {Year} VIN {VIN} Color {Color}";
+    }
+
 }

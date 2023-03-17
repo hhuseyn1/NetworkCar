@@ -21,6 +21,7 @@ public partial class MainWindow : Window
         Cars = new();
         Methods = new();
         AddMethods();
+        
     }
     public void AddMethods()
     {
@@ -28,6 +29,17 @@ public partial class MainWindow : Window
         Methods.Add(HttpMethods.Delete.ToString());
         Methods.Add(HttpMethods.Put.ToString());
         Methods.Add(HttpMethods.Post.ToString());
+        Car car = new Car()
+        {
+            Id = 1,
+            Make = "Bmw",
+            Model = "M5",
+            Year = 2010,
+            VIN = "123",
+            Color = "Red"
+        };
+        Cars.Add(car);
+
     }
 
     private void MethodBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

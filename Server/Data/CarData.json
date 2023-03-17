@@ -1,0 +1,72 @@
+[
+  {
+    "Make": "Mazda",
+    "Model": "MPV",
+    "Year": 2006,
+    "VIN": "1N6AA0CJXEN498706",
+    "Color": "Orange"
+  },
+  {
+    "Make": "Chevrolet",
+    "Model": "Suburban 1500",
+    "Year": 2000,
+    "VIN": "WAUEH98E16A259793",
+    "Color": "Crimson"
+  },
+  {
+    "Make": "Audi",
+    "Model": "riolet",
+    "Year": 1996,
+    "VIN": "KMHTC6AD9DU960968",
+    "Color": "Puce"
+  },
+  {
+    "Make": "Toyota",
+    "Model": "Avalon",
+    "Year": 2001,
+    "VIN": "WAUDF78E07A963264",
+    "Color": "Aquamarine"
+  },
+  {
+    "Make": "Dodge",
+    "Model": "Durango",
+    "Year": 1998,
+    "VIN": "TRUTX28N021038299",
+    "Color": "Orange"
+  },
+  {
+    "Make": "Mercury",
+    "Model": "Cougar",
+    "Year": 1997,
+    "VIN": "1FMJU1K52AE365414",
+    "Color": "Violet"
+  },
+  {
+    "Make": "Ford",
+    "Model": "Crown Victoria",
+    "Year": 1999,
+    "VIN": "1HGCP2E43AA480824",
+    "Color": "Maroon"
+  },
+  {
+    "Make": "Toyota",
+    "Model": "Camry",
+    "Year": 2009,
+    "VIN": "3D73Y4CL3BG214746",
+    "Color": "Crimson"
+  },
+  {
+    "Make": "Suzuki",
+    "Model": "SX4",
+    "Year": 2011,
+    "VIN": "5NMSG3ABXAH084836",
+    "Color": "Fuscia"
+  },
+  {
+    "Make": "Toyota",
+    "Model": "4Runner",
+    "Year": 2005,
+    "VIN": "19XFA1E33AE693333",
+    "Color": "Green"
+  }
+]
