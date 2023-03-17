@@ -1,0 +1,51 @@
+﻿<Window x:Class="Client.Views.ModifyView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client.Views"
+        mc:Ignorable="d"
+        Title="ModifyView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Make" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Year" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" Text="VIN" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Text="Color" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+
+
+        <TextBox Name="Maketxtbox" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Modeltxtbox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Yearxtbox" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="VINtxtbox" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Colortxtbox" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+        <Grid Grid.Row="2" Grid.Column="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Grid.Column="0" Name="SaveBtn" BorderThickness="0" Background="Green" Foreground="White" FontWeight="SemiBold" FontSize="16" Content="Save" Click="SaveCancel_Click"/>
+            <Button Grid.Row="1" Grid.Column="3" Name="CancelBtn" BorderThickness="0" Background="Red" Foreground="White" FontSize="16" FontWeight="SemiBold" Content="Cancel" Click="SaveCancel_Click"/>
+        </Grid>
+    </Grid>
+</Window>
