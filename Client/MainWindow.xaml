@@ -78,6 +78,7 @@
                 </ListView.View>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseDown" Handler="ListCars_MouseDoubleClick"/>
                         <Setter Property="FontSize" Value="16"/>
                     </Style>
                 </ListView.ItemContainerStyle>

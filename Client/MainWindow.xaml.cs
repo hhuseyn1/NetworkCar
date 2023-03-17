@@ -86,26 +86,34 @@ public partial class MainWindow : Window
 
     private void SearchBtn_Click(object sender, RoutedEventArgs e)
     {
+        var id = string.IsNullOrEmpty(IdSearchertxtbox.Text ) ? 0 : int.Parse(IdSearchertxtbox.Text);
+        
         //Cars.Clear();
-        //foreach (var item in Cars)
-        //{
-        //    //Cars -> DeserializedList change
-        //    if (IdSearchertxtbox.Text == item.Id.ToString())
-        //        Cars.Add(item);
-        //}
-
-        //if(Cars.Count == 0) {
-        //    //foreach DeserializedList
-        //    foreach (var item in Cars)
-        //    {
-        //        Cars.Add(item);
-        //    }
-        //}
+        if (MethodBox.SelectedItem == "Get")
+        {
+            var request = new Command()
+            {
+                Method=HttpMethods.Get,
+                Car=new Car { Id=id}
+            };
+        }
+        else if (MethodBox.SelectedItem == "Remove")
+        {
+            if (id == 0) {
+                MessageBox.Show("Id must be integer value and id > 0","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+                return;
+            } ;
+            var request = new Command()
+            {
+                Method = HttpMethods.Delete,
+                Car = new Car { Id = id }
+            };
+        }
     }
 
     private void ListCars_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        if(sender is ListViewItem item)
+        if (sender is ListViewItem item)
             MessageBox.Show("Test");
     }
 }
