@@ -1,5 +1,6 @@
 ﻿using Client.Enums;
 using Client.Models;
+using Client.Views;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -86,23 +87,24 @@ public partial class MainWindow : Window
 
     private void SearchBtn_Click(object sender, RoutedEventArgs e)
     {
-        var id = string.IsNullOrEmpty(IdSearchertxtbox.Text ) ? 0 : int.Parse(IdSearchertxtbox.Text);
-        
+        var id = string.IsNullOrEmpty(IdSearchertxtbox.Text) ? 0 : int.Parse(IdSearchertxtbox.Text);
+
         //Cars.Clear();
         if (MethodBox.SelectedItem == "Get")
         {
             var request = new Command()
             {
-                Method=HttpMethods.Get,
-                Car=new Car { Id=id}
+                Method = HttpMethods.Get,
+                Car = new Car { Id = id }
             };
         }
         else if (MethodBox.SelectedItem == "Remove")
         {
-            if (id == 0) {
-                MessageBox.Show("Id must be integer value and id > 0","Warning",MessageBoxButton.OK,MessageBoxImage.Warning);
+            if (id == 0)
+            {
+                MessageBox.Show("Id must be integer value and id > 0", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-            } ;
+            };
             var request = new Command()
             {
                 Method = HttpMethods.Delete,
@@ -113,7 +115,10 @@ public partial class MainWindow : Window
 
     private void ListCars_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        if (sender is ListViewItem item)
-            MessageBox.Show("Test");
+        if (sender is not ListViewItem item) return;
+        Car car = (Car)ListCars.SelectedItem;
+        ModifyView view = new(car);
+        view.ShowDialog();
+        
     }
 }

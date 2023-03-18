@@ -9,6 +9,11 @@ public partial class ModifyView : Window
     public ModifyView(Car car)
     {
         InitializeComponent();
+        Idtxtbox.Text = car.Id.ToString();
+        Maketxtbox.Text = car.Make;
+        Modeltxtbox.Text = car.Model;
+        VINtxtbox.Text = car.VIN;
+        Colortxtbox.Text = car.Color;
     }
     private void SaveCancel_Click(object sender, RoutedEventArgs e)
     {
@@ -18,9 +23,9 @@ public partial class ModifyView : Window
             {
 
             }
-            else if (btn.Name == "SaveBtn")
+            else if (btn.Name == "CancelBtn")
             {
-
+                this.Close();
             }
         }
     }

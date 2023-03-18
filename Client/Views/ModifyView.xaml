@@ -21,31 +21,22 @@
             <ColumnDefinition />
             <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Make" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Year" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" Text="VIN" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
-        <TextBlock Grid.Row="1" Grid.Column="3" Text="Color" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Id" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Make" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" Text="Year" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="1" Grid.Column="3" Text="VIN" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <TextBlock Grid.Row="2" Grid.Column="3" Text="Color" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
 
 
-        <TextBox Name="Maketxtbox" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox Name="Modeltxtbox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox Name="Yearxtbox" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox Name="VINtxtbox" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
-        <TextBox Name="Colortxtbox" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
-        <Grid Grid.Row="2" Grid.Column="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.4*"/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="1" Grid.Column="0" Name="SaveBtn" BorderThickness="0" Background="Green" Foreground="White" FontWeight="SemiBold" FontSize="16" Content="Save" Click="SaveCancel_Click"/>
-            <Button Grid.Row="1" Grid.Column="3" Name="CancelBtn" BorderThickness="0" Background="Red" Foreground="White" FontSize="16" FontWeight="SemiBold" Content="Cancel" Click="SaveCancel_Click"/>
-        </Grid>
+        <TextBox Name="Idtxtbox" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Maketxtbox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Modeltxtbox" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Yearxtbox" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="VINtxtbox" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Colortxtbox" Grid.Row="2" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
+        
+        <Button Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="SaveBtn" BorderThickness="0" Background="Green" Foreground="White" FontWeight="SemiBold" FontSize="16" Width="100" Height="40" Content="Save" Click="SaveCancel_Click"/>
+        <Button Grid.Row="2" Grid.Column="5" Name="CancelBtn" BorderThickness="0" Background="Red" Foreground="White" FontSize="16" FontWeight="SemiBold" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Cancel" Click="SaveCancel_Click"/>
     </Grid>
 </Window>
