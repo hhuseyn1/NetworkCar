@@ -16,7 +16,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -52,14 +52,17 @@
             <TextBox Name="Yearxtbox"  Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
             <TextBox Name="VINtxtbox"  Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
             <TextBox Name="Colortxtbox" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>
-            
+
+            <Button Grid.Row="2" Grid.Column="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Name="SaveBtn" BorderThickness="0" Background="Green" Foreground="White" FontWeight="SemiBold" FontSize="16" Width="100" Height="40" Content="Save" Click="SaveCancel_Click"/>
+            <Button Grid.Row="2" Grid.Column="5" Name="CancelBtn" BorderThickness="0" Background="Red" Foreground="White" FontSize="16" FontWeight="SemiBold" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Cancel" Click="SaveCancel_Click"/>
+
         </Grid>
 
         <Grid Name="GridPut" Grid.Row="1">
 
         </Grid>
 
-        <Grid Name="GridGetT" Grid.Row="1">
+        <Grid Name="GridGetT" Grid.Row="1" Visibility="Visible">
             <ListView Name="ListCars" ItemsSource="{Binding Cars}" MouseDoubleClick="ListCars_MouseDoubleClick">
                 <ListView.View>
                     <GridView>

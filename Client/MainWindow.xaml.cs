@@ -11,15 +11,15 @@ public partial class MainWindow : Window
 {
     public ObservableCollection<Car> Cars { get; set; }
     public ObservableCollection<string> Methods { get; set; }
+    Command request;
 
-    //Post-Add
-    //Put-
     //Delete-Remove
     public MainWindow()
     {
         InitializeComponent();
         DataContext = this;
         Cars = new();
+        request = new();
         Methods = new();
         AddMethods();
         Car car = new Car()
@@ -62,7 +62,7 @@ public partial class MainWindow : Window
             GridPut.Visibility = Visibility.Visible;
             GridAdd.Visibility = Visibility.Hidden;
             GridDelete.Visibility = Visibility.Hidden;
-            GridGetT.Visibility = Visibility.Hidden;
+            GridGetT.Visibility = Visibility.Visible;
         }
         else if (MethodBox.SelectedItem.ToString() == "Delete")
         {
@@ -88,11 +88,10 @@ public partial class MainWindow : Window
     private void SearchBtn_Click(object sender, RoutedEventArgs e)
     {
         var id = string.IsNullOrEmpty(IdSearchertxtbox.Text) ? 0 : int.Parse(IdSearchertxtbox.Text);
-
         //Cars.Clear();
         if (MethodBox.SelectedItem == "Get")
         {
-            var request = new Command()
+            request = new Command()
             {
                 Method = HttpMethods.Get,
                 Car = new Car { Id = id }
@@ -105,7 +104,7 @@ public partial class MainWindow : Window
                 MessageBox.Show("Id must be integer value and id > 0", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             };
-            var request = new Command()
+            request = new Command()
             {
                 Method = HttpMethods.Delete,
                 Car = new Car { Id = id }
@@ -115,12 +114,35 @@ public partial class MainWindow : Window
 
     private void ListCars_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
+        if (GridPut.Visibility != Visibility.Visible) return;
         if (sender is not ListViewItem item) return;
         if (ListCars.SelectedItem == null) return;
         var car = (Car)ListCars.SelectedItem;
-        MessageBox.Show(car.Make ?? "s");
         ModifyView view = new(car);
         view.ShowDialog();
 
+    }
+
+    private void SaveCancel_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button btn)
+        {
+            if (btn.Name == "CancelBtn")
+            {
+                Maketxtbox.Text = string.Empty;
+                Modeltxtbox.Text = string.Empty;
+                VINtxtbox.Text = string.Empty;
+                Yearxtbox.Text = string.Empty;
+                Colortxtbox.Text = string.Empty;
+            }
+            else if (btn.Name == "SaveBtn")
+            {
+                request = new Command()
+                {
+                    Method = HttpMethods.Post,
+                    Car = new Car() { Make = Maketxtbox.Text, Model = Modeltxtbox.Text, VIN = VINtxtbox.Text, Color = Colortxtbox.Text, Year = ushort.Parse(Yearxtbox.Text) }
+                };
+            }
+        }
     }
 }
