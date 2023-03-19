@@ -1,7 +1,11 @@
 ﻿using Client.Enums;
 using Client.Models;
 using Client.Views;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,7 +36,13 @@ public partial class MainWindow : Window
             Color = "Red"
         };
         Cars.Add(car);
+        using var client = new TcpClient("127.0.0.1", 45678);
 
+        var serverStream = client.GetStream();
+        var bw = new BinaryWriter(serverStream);
+        var br = new BinaryReader(serverStream);
+
+        
     }
     public void AddMethods()
     {
@@ -88,7 +98,6 @@ public partial class MainWindow : Window
     private void SearchBtn_Click(object sender, RoutedEventArgs e)
     {
         var id = string.IsNullOrEmpty(IdSearchertxtbox.Text) ? 0 : int.Parse(IdSearchertxtbox.Text);
-        //Cars.Clear();
         if (MethodBox.SelectedItem == "Get")
         {
             request = new Command()
