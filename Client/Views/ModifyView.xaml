@@ -29,7 +29,7 @@
         <TextBlock Grid.Row="2" Grid.Column="3" Text="Color" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
 
 
-        <TextBox Name="Idtxtbox" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
+        <TextBox Name="Idtxtbox" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18" IsReadOnly="True"/>
         <TextBox Name="Maketxtbox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
         <TextBox Name="Modeltxtbox" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18"/>
         <TextBox Name="Yearxtbox" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" FontSize="18"/>

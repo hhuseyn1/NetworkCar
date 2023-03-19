@@ -116,9 +116,11 @@ public partial class MainWindow : Window
     private void ListCars_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         if (sender is not ListViewItem item) return;
-        Car car = (Car)ListCars.SelectedItem;
+        if (ListCars.SelectedItem == null) return;
+        var car = (Car)ListCars.SelectedItem;
+        MessageBox.Show(car.Make ?? "s");
         ModifyView view = new(car);
         view.ShowDialog();
-        
+
     }
 }

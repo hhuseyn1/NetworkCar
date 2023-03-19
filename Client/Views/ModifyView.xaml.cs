@@ -14,6 +14,7 @@ public partial class ModifyView : Window
         Modeltxtbox.Text = car.Model;
         VINtxtbox.Text = car.VIN;
         Colortxtbox.Text = car.Color;
+        Yearxtbox.Text = car.Year.ToString();
     }
     private void SaveCancel_Click(object sender, RoutedEventArgs e)
     {
