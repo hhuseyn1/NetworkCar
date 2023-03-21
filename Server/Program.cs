@@ -23,25 +23,25 @@ var port = 45678;
 
 var listener = new TcpListener(ip, port);
 
-listener.Start();
-
-
+listener.Start(1);
 
 while (true)
 {
     var client = await listener.AcceptTcpClientAsync();
+    var clientStream = client.GetStream();
+    var br = new BinaryReader(clientStream);
+    var bw = new BinaryWriter(clientStream);
     Console.WriteLine($"{client.Client.RemoteEndPoint} are connected...");
     await Task.Run(async () =>
     {
-        var clientStream = client.GetStream();
-        var br = new BinaryReader(clientStream);
-
-
+        while (true)
+        {
+            var text = br.ReadString();
+            await Console.Out.WriteLineAsync(text);
+        }
     });
 
 }
-
-//await GetByIdAsync();
 
 async Task<Car?> GetByIdAsync(int Id)
 {

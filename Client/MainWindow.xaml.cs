@@ -124,7 +124,7 @@ public partial class MainWindow : Window
     private void ListCars_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         if (GridPut.Visibility != Visibility.Visible) return;
-        if (sender is not ListViewItem item) return;
+        if (sender is not ListViewItem) return;
         if (ListCars.SelectedItem == null) return;
         var car = (Car)ListCars.SelectedItem;
         ModifyView view = new(car);
