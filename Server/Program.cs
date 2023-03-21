@@ -5,7 +5,14 @@ using System.Net;
 using System.Net.Sockets;
 
 
-var dirInfo = new DirectoryInfo(@"..\..\..\Datas");
+var ip = IPAddress.Parse("127.0.0.1");
+var port = 45678;
+
+var listener = new TcpListener(ip, port);
+
+listener.Start(1);
+
+var dirInfo = new DirectoryInfo(@"..\..\..\Data");
 string jsonData;
 JArray jsonArray = new();
 foreach (var file in dirInfo.GetFiles())
@@ -16,14 +23,6 @@ foreach (var file in dirInfo.GetFiles())
         jsonArray = JArray.Parse(jsonData);
     }
 }
-
-
-var ip = IPAddress.Parse("127.0.0.1");
-var port = 45678;
-
-var listener = new TcpListener(ip, port);
-
-listener.Start(1);
 
 while (true)
 {
@@ -37,10 +36,45 @@ while (true)
         while (true)
         {
             var text = br.ReadString();
-            await Console.Out.WriteLineAsync(text);
+            var text2 = br.ReadString();
+            var car = ConvertToCar(text2);
+            int id = car.Id;
+            await Console.Out.WriteLineAsync(id.ToString());
+            switch (text)
+            {
+                case "Get":
+                    if (id != 0)
+                        GetByIdAsync(id);
+                    else if (id == 0)
+                        GetAll();
+                    break;
+                case "Remove":
+                    Delete(id);
+                    break;
+                case "Put":
+                    Update(car);
+                    break;
+                case "Post":
+                    Add(car);
+                    break;
+                default:
+                    break;
+            }
         }
     });
 
+}
+
+Car ConvertToCar(string text)
+{
+    Car car = new();
+    car.Id = int.Parse(text.Split(' ')[0]);
+    car.Make = text.Split(' ')[1];
+    car.Model = text.Split(' ')[2];
+    car.Year = ushort.Parse(text.Split(' ')[3]);
+    car.VIN = text.Split(' ')[4];
+    car.Color = text.Split(' ')[5];
+    return car;
 }
 
 async Task<Car?> GetByIdAsync(int Id)

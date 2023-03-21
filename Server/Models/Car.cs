@@ -11,7 +11,7 @@ public class Car
 
     public override string ToString()
     {
-        return $"Id {Id} Make {Make} Model {Model} Year {Year} VIN {VIN} Color {Color}";
+        return $"{Id} {Make ?? "null"} {Model ?? "null"} {Year} {VIN ?? "null"} {Color ?? "null"}";
     }
 
 }

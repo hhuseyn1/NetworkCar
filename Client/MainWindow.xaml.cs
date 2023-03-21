@@ -16,7 +16,7 @@ public partial class MainWindow : Window
     public ObservableCollection<Car> Cars { get; set; }
     public ObservableCollection<string> Methods { get; set; }
     Command request;
-
+    TcpClient client = new();
     //Delete-Remove
     public MainWindow()
     {
@@ -36,13 +36,12 @@ public partial class MainWindow : Window
             Color = "Red"
         };
         Cars.Add(car);
-        using var client = new TcpClient("127.0.0.1", 45678);
+        client = new TcpClient("127.0.0.1", 45678);
 
         var serverStream = client.GetStream();
         var bw = new BinaryWriter(serverStream);
         var br = new BinaryReader(serverStream);
 
-        
     }
     public void AddMethods()
     {
@@ -93,20 +92,22 @@ public partial class MainWindow : Window
             GridDelete.Visibility = Visibility.Hidden;
             GridAdd.Visibility = Visibility.Hidden;
         }
+
     }
 
     private void SearchBtn_Click(object sender, RoutedEventArgs e)
     {
         var id = string.IsNullOrEmpty(IdSearchertxtbox.Text) ? 0 : int.Parse(IdSearchertxtbox.Text);
-        if (MethodBox.SelectedItem == "Get")
+        if (MethodBox.SelectedItem.ToString() == "Get")
         {
             request = new Command()
             {
                 Method = HttpMethods.Get,
                 Car = new Car { Id = id }
             };
+
         }
-        else if (MethodBox.SelectedItem == "Remove")
+        else if (MethodBox.SelectedItem.ToString() == "Remove")
         {
             if (id == 0)
             {
@@ -118,6 +119,17 @@ public partial class MainWindow : Window
                 Method = HttpMethods.Delete,
                 Car = new Car { Id = id }
             };
+        }
+        try
+        {
+            var serverStream = client.GetStream();
+            BinaryWriter bw = new(serverStream);
+            bw.Write(request.Method.ToString());
+            bw.Write(request.Car.ToString());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
         }
     }
 
@@ -151,6 +163,17 @@ public partial class MainWindow : Window
                     Method = HttpMethods.Post,
                     Car = new Car() { Make = Maketxtbox.Text, Model = Modeltxtbox.Text, VIN = VINtxtbox.Text, Color = Colortxtbox.Text, Year = ushort.Parse(Yearxtbox.Text) }
                 };
+            }
+            try
+            {
+                var serverStream = client.GetStream();
+                BinaryWriter bw = new(serverStream);
+                bw.Write(request.Method.ToString());
+                bw.Write(request.Car.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
