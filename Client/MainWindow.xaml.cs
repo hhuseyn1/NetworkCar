@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,9 +35,14 @@ public partial class MainWindow : Window
         var bw = new BinaryWriter(serverStream);
         var br = new BinaryReader(serverStream);
 
-        string str=br.ReadString();
+        var count = int.Parse(br.ReadString());
+        for (int i = 0; i < count; i++)
+        {
+            var jsonResponse = br.ReadString();
+            var car = JsonSerializer.Deserialize<Car>(jsonResponse);
+            Cars.Add(car);
+        }
     }
-
 
     public void AddMethods()
     {

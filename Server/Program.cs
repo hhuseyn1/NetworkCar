@@ -31,9 +31,11 @@ while (true)
     {
         while (true)
         {
+            bw.Write(Cars.Count.ToString());
             foreach (var item in Cars)
             {
-                bw.Write(ConvertToByteArray(item));
+                var request = JsonSerializer.Serialize<Car>(item);
+                bw.Write(request);
             }
             var text = br.ReadString();
             var text2 = br.ReadString();
@@ -67,22 +69,12 @@ while (true)
 
             foreach (var item in ShowCars)
             {
-                bw.Write(ConvertToByteArray(item));
+                var request = JsonSerializer.Serialize<Car>(item);
+                bw.Write(request);
             }
         }
     });
 
-}
-
-
-static byte[] ConvertToByteArray(Car car)
-{
-    BinaryFormatter bf = new BinaryFormatter();
-    using (MemoryStream ms = new MemoryStream())
-    {
-        bf.Serialize(ms, car);
-        return ms.ToArray();
-    }
 }
 
 Car ConvertToCar(string text)
