@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Server.Models;
 using System.Net;
 using System.Net.Sockets;
-
+using System.Runtime.Serialization.Formatters.Binary;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 var ip = IPAddress.Parse("127.0.0.1");
 var port = 45678;
@@ -11,18 +11,14 @@ var port = 45678;
 var listener = new TcpListener(ip, port);
 
 listener.Start(1);
-
-var dirInfo = new DirectoryInfo(@"..\..\..\Data");
-string jsonData;
-JArray jsonArray = new();
-foreach (var file in dirInfo.GetFiles())
-{
-    if (file.Extension == ".json")
-    {
-        jsonData = File.ReadAllText(file.FullName);
-        jsonArray = JArray.Parse(jsonData);
-    }
-}
+Console.WriteLine("Listening...");
+var dirInfo = new DirectoryInfo(@"..\..\..\Data\CarData.json");
+var jsonData = File.ReadAllText(dirInfo.FullName);
+var cars = JsonSerializer.Deserialize<List<Car>>(jsonData);
+List<Car> Cars = new();
+List<Car> ShowCars = new(); //For return Car List
+foreach (Car car in cars)
+    Cars.Add(car);
 
 while (true)
 {
@@ -35,18 +31,21 @@ while (true)
     {
         while (true)
         {
+            foreach (var item in Cars)
+            {
+                bw.Write(ConvertToByteArray(item));
+            }
             var text = br.ReadString();
             var text2 = br.ReadString();
             var car = ConvertToCar(text2);
             int id = car.Id;
-            await Console.Out.WriteLineAsync(id.ToString());
+            try
+            {
+
             switch (text)
             {
                 case "Get":
-                    if (id != 0)
-                        GetByIdAsync(id);
-                    else if (id == 0)
-                        GetAll();
+                    GetByIdAsync(id);
                     break;
                 case "Remove":
                     Delete(id);
@@ -60,9 +59,30 @@ while (true)
                 default:
                     break;
             }
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+            }
+
+            foreach (var item in ShowCars)
+            {
+                bw.Write(ConvertToByteArray(item));
+            }
         }
     });
 
+}
+
+
+static byte[] ConvertToByteArray(Car car)
+{
+    BinaryFormatter bf = new BinaryFormatter();
+    using (MemoryStream ms = new MemoryStream())
+    {
+        bf.Serialize(ms, car);
+        return ms.ToArray();
+    }
 }
 
 Car ConvertToCar(string text)
@@ -77,43 +97,18 @@ Car ConvertToCar(string text)
     return car;
 }
 
-async Task<Car?> GetByIdAsync(int Id)
+async Task GetByIdAsync(int Id)
 {
-    Car? car = new();
-    string jsonData = await File.ReadAllTextAsync("CarData.json");
-
-    JObject jsonObject = JObject.Parse(jsonData);
-
-    if (Id != 0)
-    {
-        foreach (JObject item in jsonArray)
-        {
-            if (Id == (int)item["Id"])
-            {
-                car = item.ToObject<Car>();
-            }
-        }
-    }
+    ShowCars.Clear();
+    if (Id == 0)
+        foreach (var item in Cars)
+            ShowCars.Add(item);
     else
-        Console.WriteLine("Something get wrong id is not found!");
-    return car;
+        foreach (var item in Cars)
+            if (item.Id == Id)
+                ShowCars.Add(item);
 }
 
-async Task<List<Car>> GetAll()
-{
-    List<Car> Cars = new();
-    Car? car = new();
-    string jsonData = await File.ReadAllTextAsync("CarData.json");
-
-    JObject jsonObject = JObject.Parse(jsonData);
-
-    foreach (JObject item in jsonArray)
-    {
-        car = item.ToObject<Car>();
-        Cars.Add(car);
-    }
-    return Cars;
-}
 
 async Task<bool> Delete(int Id)
 {

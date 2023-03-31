@@ -1,5 +1,5 @@
 ﻿namespace Server.Models;
-
+[Serializable]
 public class Car
 {
     public int Id { get; set; }

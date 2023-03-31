@@ -1,4 +1,7 @@
-﻿namespace Client.Models;
+﻿using System;
+
+namespace Client.Models;
+[Serializable]
 public class Car
 {
     public int Id { get; set; }

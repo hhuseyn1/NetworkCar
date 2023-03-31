@@ -2,10 +2,11 @@
 using Client.Models;
 using Client.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Sockets;
-using System.Threading.Tasks;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,7 +18,6 @@ public partial class MainWindow : Window
     public ObservableCollection<string> Methods { get; set; }
     Command request;
     TcpClient client = new();
-    //Delete-Remove
     public MainWindow()
     {
         InitializeComponent();
@@ -26,23 +26,17 @@ public partial class MainWindow : Window
         request = new();
         Methods = new();
         AddMethods();
-        Car car = new Car()
-        {
-            Id = 1,
-            Make = "Bmw",
-            Model = "M5",
-            Year = 2010,
-            VIN = "123",
-            Color = "Red"
-        };
-        Cars.Add(car);
+
         client = new TcpClient("127.0.0.1", 45678);
 
         var serverStream = client.GetStream();
         var bw = new BinaryWriter(serverStream);
         var br = new BinaryReader(serverStream);
 
+        string str=br.ReadString();
     }
+
+
     public void AddMethods()
     {
         Methods.Add(HttpMethods.Get.ToString());
