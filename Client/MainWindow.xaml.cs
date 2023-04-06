@@ -2,12 +2,9 @@
 using Client.Models;
 using Client.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Sockets;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,13 +32,7 @@ public partial class MainWindow : Window
         var bw = new BinaryWriter(serverStream);
         var br = new BinaryReader(serverStream);
 
-        var count = int.Parse(br.ReadString());
-        for (int i = 0; i < count; i++)
-        {
-            var jsonResponse = br.ReadString();
-            var car = JsonSerializer.Deserialize<Car>(jsonResponse);
-            Cars.Add(car);
-        }
+        AddCars(br, serverStream);
     }
 
     public void AddMethods()
@@ -50,6 +41,20 @@ public partial class MainWindow : Window
         Methods.Add(HttpMethods.Delete.ToString());
         Methods.Add(HttpMethods.Put.ToString());
         Methods.Add(HttpMethods.Post.ToString());
+    }
+
+    private void AddCars(BinaryReader br, NetworkStream serverStream)
+    {
+        serverStream = client.GetStream();
+        br = new BinaryReader(serverStream);
+
+        var count = int.Parse(br.ReadString());
+        for (int i = 0; i < count; i++)
+        {
+            var jsonResponse = br.ReadString();
+            var car = JsonSerializer.Deserialize<Car>(jsonResponse);
+            Cars.Add(car);
+        }
     }
 
     private void MethodBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -125,8 +130,17 @@ public partial class MainWindow : Window
         {
             var serverStream = client.GetStream();
             BinaryWriter bw = new(serverStream);
+            BinaryReader br = new(serverStream);
             bw.Write(request.Method.ToString());
             bw.Write(request.Car.ToString());
+            var count = int.Parse(br.ReadString());
+            Cars.Clear();
+            for (int i = 0; i < count; i++)
+            {
+                var jsonResponse = br.ReadString();
+                var car = JsonSerializer.Deserialize<Car>(jsonResponse);
+                Cars.Add(car);
+            }
         }
         catch (Exception ex)
         {
@@ -142,7 +156,7 @@ public partial class MainWindow : Window
         var car = (Car)ListCars.SelectedItem;
         ModifyView view = new(car);
         view.ShowDialog();
-
+        ListCars.SelectedItem = null;
     }
 
     private void SaveCancel_Click(object sender, RoutedEventArgs e)
@@ -151,11 +165,7 @@ public partial class MainWindow : Window
         {
             if (btn.Name == "CancelBtn")
             {
-                Maketxtbox.Text = string.Empty;
-                Modeltxtbox.Text = string.Empty;
-                VINtxtbox.Text = string.Empty;
-                Yearxtbox.Text = string.Empty;
-                Colortxtbox.Text = string.Empty;
+                ClearBoxes();
             }
             else if (btn.Name == "SaveBtn")
             {
@@ -176,6 +186,16 @@ public partial class MainWindow : Window
             {
                 Console.WriteLine(ex.Message);
             }
+            MessageBox.Show("Car sucessfully added", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            ClearBoxes();
         }
+    }
+    private void ClearBoxes()
+    {
+        Maketxtbox.Text = string.Empty;
+        Modeltxtbox.Text = string.Empty;
+        VINtxtbox.Text = string.Empty;
+        Yearxtbox.Text = string.Empty;
+        Colortxtbox.Text = string.Empty;
     }
 }

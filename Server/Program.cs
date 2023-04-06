@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Server.Models;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 var ip = IPAddress.Parse("127.0.0.1");
@@ -43,33 +43,35 @@ while (true)
             int id = car.Id;
             try
             {
-
-            switch (text)
-            {
-                case "Get":
-                    GetByIdAsync(id);
-                    break;
-                case "Remove":
-                    Delete(id);
-                    break;
-                case "Put":
-                    Update(car);
-                    break;
-                case "Post":
-                    Add(car);
-                    break;
-                default:
-                    break;
-            }
+                switch (text)
+                {
+                    case "Get":
+                        GetByIdAsync(id);
+                        break;
+                    case "Remove":
+                        Delete(id);
+                        break;
+                    case "Put":
+                        var result=Update(car);
+                        result.Wait();
+                        if(result.Result)
+                            ShowCars.Add(car);
+                        break;
+                    case "Post":
+                        Add(car);
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 await Console.Out.WriteLineAsync(ex.Message);
             }
-
+            bw.Write(ShowCars.Count.ToString());
             foreach (var item in ShowCars)
             {
-                var request = JsonSerializer.Serialize<Car>(item);
+                var request = JsonSerializer.Serialize(item);
                 bw.Write(request);
             }
         }
@@ -93,12 +95,16 @@ async Task GetByIdAsync(int Id)
 {
     ShowCars.Clear();
     if (Id == 0)
+    {
         foreach (var item in Cars)
             ShowCars.Add(item);
+    }
     else
+    {
         foreach (var item in Cars)
             if (item.Id == Id)
                 ShowCars.Add(item);
+    }
 }
 
 
